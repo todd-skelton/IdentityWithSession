@@ -1,6 +1,4 @@
-﻿using IdentityWithSession.Data;
-using IdentityWithSession.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
