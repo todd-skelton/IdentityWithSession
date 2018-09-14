@@ -43,18 +43,22 @@ namespace IdentityWithSession
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // build default authorization policy
             var defaultPolicy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
                 .AddRequirements(new ValidSessionRequirement())
                 .Build();
 
+            // add authorization to the pipe
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = defaultPolicy;
             });
 
+            // register new claims factory
             services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, ApplicationClaimsPrincipalFactory>();
 
+            // register valid session handler
             services.AddTransient<IAuthorizationHandler, ValidSessionHandler>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
